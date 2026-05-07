@@ -53,7 +53,9 @@ def chat():
                 break
 
         if found_answer:
+            
             break
+        
 
     return jsonify({
         "username": username,
