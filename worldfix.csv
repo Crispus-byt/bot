@@ -1,0 +1,37 @@
+Keywords,Utterance,Response
+
+greeting,hello,Hi there! Welcome to WorldFix Lite. How can I help you today?
+greeting,hi,Hello! Need help posting or solving a problem?
+greeting,hey,Hey! Ready to solve or post a problem?
+
+post_problem,how do i post a problem,Go to the Post button at the bottom and fill in the problem details like title description and budget.
+post_problem,i want to post a job,Great! Tap Post and describe your problem clearly so solvers can help you.
+post_problem,where to post problem,Click the Post button on the navigation bar to get started.
+
+solve_problem,how do i solve a problem,Browse problems then click on one and submit your proposal with price and timeline.
+solve_problem,i want to earn money,You can earn by solving problems. Just apply to tasks and get paid after completion.
+solve_problem,how to apply,Open a problem and click Submit Solution to apply.
+
+payment,how do i get paid,Payments are made after the problem is completed and confirmed by the client.
+payment,what payment methods are available,We support M-Pesa and PayPal for secure transactions.
+payment,when will i receive money,You receive payment once your work is approved.
+
+account,how do i create account,Click Sign Up and fill your details to create an account.
+account,i forgot my password,Click on Forgot Password and follow the instructions to reset it.
+account,how to login,Click Login and enter your email and password.
+
+profile,how to edit profile,Go to Dashboard then Profile to update your information.
+profile,how to improve reputation,Complete tasks successfully and get good ratings from clients.
+
+problems,how to find jobs,Use the Browse section to explore available problems.
+problems,how to filter problems,Use filters like category location and budget to narrow results.
+
+safety,is payment safe,Yes payments are secure and protected until work is completed.
+safety,what if i get scammed,We recommend using the platform payment system to stay protected.
+
+general,what is worldfix lite,WorldFix Lite is a platform where people post problems and others solve them for money.
+general,how does this app work,Users post problems solvers apply and get paid after completing the work.
+
+farewell,bye,Goodbye! Come back anytime to solve or post problems.
+farewell,thank you,You're welcome! Happy solving!
+farewell,thanks,Glad I could help!
