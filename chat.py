@@ -4,57 +4,56 @@ import pymysql
 
 app = Flask(__name__)
 
-# Load your CSV once (IMPORTANT: not inside route)
 df = pd.read_csv('worldfix_data.csv')
 
 
 @app.route('/chat', methods=['POST'])
 def chat():
 
-    user_text = request.form['message'].lower()
+    data = request.get_json()
 
-    # Optional: get username safely
-    username = request.form.get('username', 'Guest')
+    if not data:
+        return jsonify({"response": "Invalid request"}), 400
 
-    # Connect DB (only if you really need it)
-    connection = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='',
-        db='znest'
-    )
+    user_text = data.get("message", "").lower()
+    username = data.get("username", "Guest")
 
-    cursor = connection.cursor()
-    cursor.execute(
-        "SELECT username FROM users WHERE username=%s",
-        (username,)
-    )
+    # ---- DATABASE SAFE CONNECTION ----
+    try:
+        connection = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='',
+            db='znest'
+        )
 
-    user = cursor.fetchone()
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT username FROM users WHERE username=%s",
+            (username,)
+        )
 
-    # If user not found
-    if not user:
-        return jsonify({"response": "User not found. Please sign up first."})
+        user = cursor.fetchone()
+
+        if not user:
+            return jsonify({"response": "User not found. Please sign up first."})
+
+    except Exception as e:
+        return jsonify({"response": "Database error"}), 500
 
     # ---- BOT LOGIC ----
-    found_answer = False
-    bot_reply = "I don't understand that yet. Try asking about posting or payments."
+    bot_reply = "I don't understand that yet. Try asking something else."
 
-    for index, row in df.iterrows():
+    for _, row in df.iterrows():
 
-        keywords_list = str(row['Keywords']).split(',')
+        keywords = str(row['Keywords']).split(',')
 
-        for word in keywords_list:
-            clean_word = word.strip().lower()
-
-            if clean_word in user_text:
+        for word in keywords:
+            if word.strip().lower() in user_text:
                 bot_reply = row['Response']
-                found_answer = True
                 break
 
-        if found_answer:
-            
-            
+        if bot_reply != "I don't understand that yet. Try asking something else.":
             break
 
     return jsonify({
