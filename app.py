@@ -3,10 +3,14 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Load your chatbot dataset
-df = pd.read_csv('worldfix_data.csv')
+
+#import os
 
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(BASE_DIR, "worldfix_data.csv")
+
+df = pd.read_csv(csv_path)
 @app.route('/chat', methods=['POST'])
 def chat():
 
