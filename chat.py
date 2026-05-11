@@ -1,9 +1,9 @@
 import pandas as pd
 from flask import Flask, request, jsonify
-import pymysql
 
 app = Flask(__name__)
 
+# Load your chatbot dataset
 df = pd.read_csv('worldfix_data.csv')
 
 
@@ -17,29 +17,6 @@ def chat():
 
     user_text = data.get("message", "").lower()
     username = data.get("username", "Guest")
-
-    # ---- DATABASE SAFE CONNECTION ----
-    try:
-        connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='',
-            db='znest'
-        )
-
-        cursor = connection.cursor()
-        cursor.execute(
-            "SELECT username FROM users WHERE username=%s",
-            (username,)
-        )
-
-        user = cursor.fetchone()
-
-        if not user:
-            return jsonify({"response": "User not found. Please sign up first."})
-
-    except Exception as e:
-        return jsonify({"response": "Database error"}), 500
 
     # ---- BOT LOGIC ----
     bot_reply = "I don't understand that yet. Try asking something else."
@@ -62,5 +39,8 @@ def chat():
     })
 
 
+# IMPORTANT FOR RENDER
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
